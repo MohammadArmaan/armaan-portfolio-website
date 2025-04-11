@@ -41,7 +41,7 @@ const about = {
         },
         {
             fieldName: "Email",
-            fieldValue: "mohammadarmaan2580@gmail.com",
+            fieldValue: "info@mohammadarmaan.co.in",
         },
         {
             fieldName: "Freelance",
