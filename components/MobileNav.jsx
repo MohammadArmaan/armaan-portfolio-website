@@ -49,7 +49,7 @@ export default function MobileNav() {
                 <div className="mt-32 flex items-center justify-center">
                     <Logo />
                 </div>
-                <nav className="flex flex-col items-center justify-center gap-8 mt-32">
+                <nav className="flex flex-col items-center justify-center gap-8 mt-15">
                     {links.map((link, index) => (
                         <Link
                             href={link.path}
