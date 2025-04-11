@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Portfolio Website
 
-## Getting Started
+Welcome to my personal portfolio website! This website showcases my skills, projects, and experience as a web developer. It is built using Next.js, React, Tailwind CSS, Shadcn, Supabase, and Framer Motion for a dynamic and responsive user experience. The website is hosted on [Mohammad Armaan](https://mohammadarmaan.co.in).
 
-First, run the development server:
+## Technologies Used
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Next.js**: For server-side rendering and static site generation.
+- **React**: For building interactive and dynamic user interfaces.
+- **Tailwind CSS**: For modern, utility-first CSS styling.
+- **Shadcn**: For creating UI components and elements in a consistent design system.
+- **Supabase**: For managing backend data, user authentication, and hosting.
+- **Framer Motion**: For smooth animations and transitions throughout the site.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Responsive Design**: The website is fully responsive and works seamlessly across various devices and screen sizes.
+- **Interactive UI**: Smooth animations and transitions, powered by Framer Motion, to enhance user engagement.
+- **Dynamic Content**: The website dynamically loads content such as skills, projects, experience, and education using Next.js and Supabase.
+- **Contact Information**: A contact section where users can easily get in touch with me.
+- **Tabs Navigation**: Allows users to navigate through different sections like About Me, Skills, Education, and Experience.
+- **Dark and Light Theme**: Supports theme switching between dark and light modes to enhance user experience.
+- **Smooth Scroll**: Enables smooth scrolling on the website for better navigation and browsing.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Live Website
 
-## Learn More
+You can check out my live portfolio website at [Mohammad Armaan](https://mohammadarmaan.co.in).
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Conclusion
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This portfolio website is a reflection of my skills as a web developer, featuring modern technologies and a clean design. It serves as a central hub where potential employers, collaborators, or anyone interested in my work can learn more about me and my projects.
 
-## Deploy on Vercel
+Feel free to explore the website and get in touch if you have any questions or opportunities!
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Thank you for visiting my portfolio!
+
