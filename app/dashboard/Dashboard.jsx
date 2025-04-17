@@ -1,7 +1,7 @@
 "use client";
 
 import { supabase } from "@/lib/supabase";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { HiArrowLeft, HiArrowRight, HiTrash, HiPlus } from "react-icons/hi";
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,15 @@ import {
 import { FiArrowUp, FiArrowDown } from "react-icons/fi";
 
 export default function Dashboard() {
-  const router = useRouter();
+      return (
+          <Suspense fallback={<div>Loading...</div>}>
+              <DashboardContent />
+          </Suspense>
+      );
+}
+
+function DashboardContent() {
+    const router = useRouter();
   const searchParams = useSearchParams();
   
   // Get URL parameters with defaults
