@@ -5,9 +5,12 @@ import ThemeToggler from "./ThemeToggler";
 import Nav from "./Nav";
 import MobileNav from "./MobileNav";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
     const [header, setHeader] = useState(false);
+    const pathname = usePathname()
+    const isDashboard = pathname.startsWith("/dashboard");
 
     useEffect(() => {
         const handleScroll = () => {
@@ -27,11 +30,11 @@ export default function Header() {
                 <Logo />
                 <div className="flex items-center gap-x-6">
                     <div className="hidden xl:flex">
-                        <Nav />
+                        <Nav isDashboard={isDashboard} />
                     </div>
                     <ThemeToggler />
                     <div className="xl:hidden">
-                        <MobileNav />
+                        <MobileNav isDashboard={isDashboard} />
                     </div>
                 </div>
             </div>

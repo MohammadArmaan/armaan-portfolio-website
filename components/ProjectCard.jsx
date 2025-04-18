@@ -8,7 +8,7 @@ export default function ProjectCard({ project }) {
     <Card className="group w-full max-w-sm md:max-w-md lg:max-w-[350px] overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all p-0">
       <div className="relative h-[200px] w-full overflow-hidden rounded-t-xl">
         <Image
-          src={project.image}
+          src={project.image_url}
           alt={project.name}
           fill
           priority

@@ -1,7 +1,7 @@
 import Dashboard from "./Dashboard";
 
 export const metadata = {
-    title: "Dashboard",
+    title: "Dashboard - Contact",
     description: "Personal contact manager dashboard",
   };
 

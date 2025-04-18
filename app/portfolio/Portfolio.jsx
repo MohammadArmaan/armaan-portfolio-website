@@ -5,16 +5,17 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import ProjectCard from "@/components/ProjectCard";
-import { portfolioData } from "@/data/portfolio";
-
-const uniqueCategories = [
-    "all categories",
-    ...Array.from(new Set(portfolioData.map((p) => p.category.toLowerCase()))),
-];
+import { supabase } from "@/lib/supabase"; // Make sure your supabase client is configured
 
 export default function Portfolio() {
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense
+            fallback={
+                <div className="min-h-screen flex items-center justify-center">
+                    <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin" />
+                </div>
+            }
+        >
             <PortfolioContent />
         </Suspense>
     );
@@ -27,6 +28,23 @@ function PortfolioContent() {
     const categoryFromUrl =
         searchParams.get("category")?.toLowerCase() || "all categories";
     const [category, setCategory] = useState(categoryFromUrl);
+
+    const [projects, setProjects] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchPortfolio() {
+            const { data, error } = await supabase.from("portfolio").select("*");
+            if (error) {
+                console.error("Error fetching portfolio:", error);
+                return;
+            }
+            setProjects(data);
+            setLoading(false);
+        }
+
+        fetchPortfolio();
+    }, []);
 
     useEffect(() => {
         if (category !== categoryFromUrl) {
@@ -42,18 +60,27 @@ function PortfolioContent() {
         setCategory(categoryFromUrl);
     }, [categoryFromUrl]);
 
-    const filteredProjects = portfolioData.filter((project) =>
+    const uniqueCategories = [
+        "all categories",
+        ...Array.from(new Set(projects.map((p) => p.category.toLowerCase()))),
+    ];
+
+    const filteredProjects = projects.filter((project) =>
         category === "all categories"
             ? true
             : project.category.toLowerCase() === category
     );
+
+    if (loading) {
+        return <div className="text-center py-20">Loading portfolio...</div>;
+    }
 
     return (
         <motion.div
             initial={{ opacity: 0 }}
             animate={{
                 opacity: 1,
-                transition: { delay: 2.4, duration: 0.4, ease: "easeIn" },
+                transition: { delay: 1.4, duration: 0.4, ease: "easeIn" },
             }}
             className="min-h-[90vh] flex py-12 px-5"
         >

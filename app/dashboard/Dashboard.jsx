@@ -299,6 +299,7 @@ function DashboardContent() {
                             handleFilterChange={handleFilterChange}
                             availableServices={availableServices}
                             clearFilter={clearFilter}
+                            filterLabel={"services"}
                         />
 
                         {/* Create contact button */}

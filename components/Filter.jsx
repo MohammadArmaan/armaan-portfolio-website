@@ -18,6 +18,7 @@ export default function Filter({
     handleFilterChange,
     availableServices,
     clearFilter,
+    filterLabel,
 }) {
     return (
         <Dialog open={isFilterOpen} onOpenChange={setIsFilterOpen}>
@@ -31,9 +32,9 @@ export default function Filter({
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Filter Contacts</DialogTitle>
+                    <DialogTitle className="capitalize">Filter {filterLabel}</DialogTitle>
                     <DialogDescription>
-                        Select a service to filter the contacts.
+                        Select a {filterLabel} to filter the contacts.
                     </DialogDescription>
                 </DialogHeader>
                 <div className="py-4">
@@ -45,7 +46,7 @@ export default function Filter({
                             <SelectValue placeholder="Select a service" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">All Services</SelectItem>
+                            <SelectItem value="all">All {filterLabel}</SelectItem>
                             {availableServices.map((service) => (
                                 <SelectItem
                                     className="capitalize"
