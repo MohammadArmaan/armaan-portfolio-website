@@ -26,7 +26,7 @@ export const metadata = {
         default: "Mohammad Armaan | Welcome",
     },
     description:
-        "Discover the dynamic portfolio of Mohammad Armaan, showcasing a fusion of creativity,innovation, and expertise in web development and design. Explore a curated collection of projects",
+        "Discover the dynamic portfolio of Mohammad Armaan, showcasing a fusion of creativity, innovation, and expertise in web development and design. Explore a curated collection of projects",
 };
 
 export default function RootLayout({ children }) {
