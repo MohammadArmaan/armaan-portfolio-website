@@ -4,7 +4,7 @@ import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import {
     Select,
     SelectContent,
@@ -19,31 +19,87 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
 import emailjs from "@emailjs/browser";
 
-const info = [
-    {
-        icon: <FaPhoneAlt />,
-        title: "Phone",
-        description: "+91 7338675875",
-    },
-    {
-        icon: <FaEnvelope />,
-        title: "Email",
-        description: "info@mohammadarmaan.co.in",
-    },
-    {
-        icon: <FaMapMarkerAlt />,
-        title: "Address",
-        description: "Bangalore, India",
-    },
-];
+export default function Social() {
+    return (
+        <Suspense
+            fallback={
+                <div className="min-h-[200px] flex items-center justify-center">
+                    <div className="w-10 h-10 border-4 border-t-transparent border-primary rounded-full animate-spin" />
+                </div>
+            }
+        >
+            <ContactContent />
+        </Suspense>
+    );
+}
 
-export default function Contact() {
+function ContactContent() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [phoneNo, setPhoneNo] = useState("");
     const [message, setMessage] = useState("");
     const [service, setService] = useState("");
+
+    const [info, setInfo] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const fetchInfo = useCallback(async () => {
+        setLoading(true);
+        setError(null);
+
+        const { data, error } = await supabase
+            .from("settings")
+            .select("*")
+            .single();
+
+        if (error) {
+            console.error("Error fetching stats:", error.message);
+            setError(error.message);
+            setLoading(false);
+            return;
+        }
+
+        const info = [
+            {
+                icon: <FaPhoneAlt />,
+                title: "Phone",
+                description: data.phone,
+            },
+            {
+                icon: <FaEnvelope />,
+                title: "Email",
+                description: data.email,
+            },
+            {
+                icon: <FaMapMarkerAlt />,
+                title: "Address",
+                description: data.address,
+            },
+        ];
+
+        setInfo(info);
+        setLoading(false);
+    }, []);
+
+    useEffect(() => {
+        fetchInfo();
+    }, [fetchInfo]);
+
+    if (loading) {
+        return (
+            <div className="min-h-[50px] flex items-center justify-center">
+                <div className="w-10 h-10 border-4 border-t-transparent border-primary rounded-full animate-spin" />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="text-center text-red-500">Failed to load info</div>
+        );
+    }
 
     function handleSubmit(e) {
         e.preventDefault();

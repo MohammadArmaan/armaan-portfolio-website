@@ -51,6 +51,10 @@ const dashboardLinks = [
         path: "/dashboard/projects",
     },
     {
+        name: "resume",
+        path: "/dashboard/resume",
+    },
+    {
         name: "settings",
         path: "/dashboard/settings",
     },

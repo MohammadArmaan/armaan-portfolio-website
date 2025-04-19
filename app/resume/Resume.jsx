@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import {
     TooltipContent,
     TooltipProvider,
@@ -16,43 +16,7 @@ import {
 import { Tooltip } from "@radix-ui/react-tooltip";
 import "swiper/css";
 import { useTheme } from "next-themes";
-
-const about = {
-    title: "About Me",
-    description:
-        "I'm Mohammad Armaan, a Computer Science Engineering student at Don Bosco Institute of Technology, affiliated with VTU. I’m passionate about crafting digital experiences through web development. With a strong foundation in both frontend and backend technologies, I enjoy building responsive, user-focused web applications. I'm constantly learning, experimenting, and pushing boundaries to bring ideas to life online.",
-
-    info: [
-        {
-            fieldName: "Name",
-            fieldValue: "Mohammad Armaan",
-        },
-        {
-            fieldName: "Phone",
-            fieldValue: "+91 7338675875",
-        },
-        {
-            fieldName: "Experience",
-            fieldValue: "2+ Years",
-        },
-        {
-            fieldName: "Nationality",
-            fieldValue: "Indian",
-        },
-        {
-            fieldName: "Email",
-            fieldValue: "info@mohammadarmaan.co.in",
-        },
-        {
-            fieldName: "Freelance",
-            fieldValue: "Available",
-        },
-        {
-            fieldName: "Languages",
-            fieldValue: "English, Hindi, Kannada",
-        },
-    ],
-};
+import { supabase } from "@/lib/supabase";
 
 const experience = {
     icon: "/resume/badge.svg",
@@ -146,7 +110,13 @@ const skills = {
 
 export default function Resume() {
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense
+            fallback={
+                <div className="min-h-[200px] flex items-center justify-center">
+                    <div className="w-10 h-10 border-4 border-t-transparent border-primary rounded-full animate-spin" />
+                </div>
+            }
+        >
             <ResumeContent />
         </Suspense>
     );
@@ -161,12 +131,73 @@ function ResumeContent() {
     const tabParam = searchParams.get("tab");
     const [activeTab, setActiveTab] = useState("about");
 
+    const [about, setAbout] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
     useEffect(() => {
         if (tabParam) {
             setActiveTab(tabParam);
         }
         setMounted(true);
     }, [tabParam]);
+
+    const fetchAbout = useCallback(async () => {
+        setLoading(true);
+        setError(null);
+
+        const { data, error } = await supabase
+            .from("settings")
+            .select("*")
+            .single();
+
+        if (error) {
+            console.error("Error fetching stats:", error.message);
+            setError(error.message);
+            setLoading(false);
+            return;
+        }
+
+        const about = {
+            title: "About Me",
+            description: data.description,
+
+            info: [
+                { fieldName: "Name", fieldValue: data.name },
+                { fieldName: "Phone", fieldValue: data.phone },
+                {
+                    fieldName: "Experience",
+                    fieldValue: `${data.experience}+ Years`,
+                },
+                { fieldName: "Nationality", fieldValue: data.nationality },
+                { fieldName: "Email", fieldValue: data.email },
+                { fieldName: "Freelance", fieldValue: data.freelance },
+                { fieldName: "Languages", fieldValue: data.languages },
+            ],
+        };
+        setAbout(about);
+        setLoading(false);
+    }, []);
+
+    useEffect(() => {
+        fetchAbout();
+    }, [fetchAbout]);
+
+    if (loading) {
+        return (
+            <div className="min-h-[50px] flex items-center justify-center">
+                <div className="w-10 h-10 border-4 border-t-transparent border-primary rounded-full animate-spin" />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="text-center text-red-500">
+                Failed to load detals
+            </div>
+        );
+    }
 
     const handleTabChange = (value) => {
         setActiveTab(value);

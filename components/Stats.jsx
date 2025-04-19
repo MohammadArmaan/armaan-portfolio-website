@@ -65,7 +65,7 @@ function StatsContent() {
     if (error) {
         return (
             <div className="text-center text-red-500">
-                Failed to load stats: {error}
+                Failed to load stats
             </div>
         );
     }
