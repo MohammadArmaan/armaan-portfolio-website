@@ -5,7 +5,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import ProjectCard from "@/components/ProjectCard";
-import { supabase } from "@/lib/supabase"; // Make sure your supabase client is configured
+import { supabase } from "@/lib/supabase";
+import { Loader } from "lucide-react";
 
 export default function Portfolio() {
     return (
@@ -21,6 +22,15 @@ export default function Portfolio() {
     );
 }
 
+async function fetchPortfolio() {
+    const { data, error } = await supabase.from("portfolio").select("*");
+    if (error) {
+        console.error("Error fetching portfolio:", error);
+        return [];
+    }
+    return data;
+}
+
 function PortfolioContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -32,20 +42,18 @@ function PortfolioContent() {
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // Initial data fetch
     useEffect(() => {
-        async function fetchPortfolio() {
-            const { data, error } = await supabase.from("portfolio").select("*");
-            if (error) {
-                console.error("Error fetching portfolio:", error);
-                return;
-            }
+        async function load() {
+            const data = await fetchPortfolio();
             setProjects(data);
             setLoading(false);
         }
 
-        fetchPortfolio();
+        load();
     }, []);
 
+    // Update URL if category changes
     useEffect(() => {
         if (category !== categoryFromUrl) {
             const newUrl =
@@ -56,6 +64,7 @@ function PortfolioContent() {
         }
     }, [category, categoryFromUrl, router]);
 
+    // Keep category state in sync with the URL
     useEffect(() => {
         setCategory(categoryFromUrl);
     }, [categoryFromUrl]);
@@ -72,7 +81,11 @@ function PortfolioContent() {
     );
 
     if (loading) {
-        return <div className="text-center py-20">Loading portfolio...</div>;
+        return (
+            <div className="min-h-[50px] flex items-center justify-center">
+                <div className="w-10 h-10 border-4 border-t-transparent border-primary rounded-full animate-spin" />
+            </div>
+        );
     }
 
     return (
@@ -96,11 +109,11 @@ function PortfolioContent() {
                 >
                     <TabsList
                         className="flex flex-col 
-                            gap-3 
-                            mb-12 
-                            lg:flex-row 
-                            lg:justify-center 
-                            lg:items-center"
+                        gap-3 
+                        mb-12 
+                        lg:flex-row 
+                        lg:justify-center 
+                        lg:items-center"
                     >
                         {uniqueCategories.map((cat, index) => (
                             <TabsTrigger

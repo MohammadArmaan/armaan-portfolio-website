@@ -1,7 +1,7 @@
 "use client";
 
 import { supabase } from "@/lib/supabase";
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense, useCallback } from "react";
 import CountUp from "react-countup";
 
 export default function Stats() {
@@ -20,36 +20,52 @@ export default function Stats() {
 
 function StatsContent() {
     const [stats, setStats] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchStats = async () => {
-            const { data, error } = await supabase
-                .from("settings")
-                .select("*")
-                .single(); // get single row
+    const fetchStats = useCallback(async () => {
+        setLoading(true);
+        setError(null);
 
-            if (error) {
-                console.error("Error fetching stats:", error.message);
-                return;
-            }
+        const { data, error } = await supabase
+            .from("settings")
+            .select("*")
+            .single();
 
-            const statArray = [
-                { num: data.experience, text: "Years of Experience" },
-                { num: data.projects, text: "Projects Completed" },
-                { num: data.technologies, text: "Technologies Mastered" },
-                { num: data.hackathons, text: "Hackathons Attended" },
-            ];
+        if (error) {
+            console.error("Error fetching stats:", error.message);
+            setError(error.message);
+            setLoading(false);
+            return;
+        }
 
-            setStats(statArray);
-        };
+        const statArray = [
+            { num: data.experience, text: "Years of Experience" },
+            { num: data.projects, text: "Projects Completed" },
+            { num: data.technologies, text: "Technologies Mastered" },
+            { num: data.hackathons, text: "Hackathons Attended" },
+        ];
 
-        fetchStats();
+        setStats(statArray);
+        setLoading(false);
     }, []);
 
-    if (!stats) {
+    useEffect(() => {
+        fetchStats();
+    }, [fetchStats]);
+
+    if (loading) {
         return (
             <div className="min-h-[50px] flex items-center justify-center">
                 <div className="w-10 h-10 border-4 border-t-transparent border-primary rounded-full animate-spin" />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="text-center text-red-500">
+                Failed to load stats: {error}
             </div>
         );
     }

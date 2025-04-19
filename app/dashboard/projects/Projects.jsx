@@ -64,7 +64,7 @@ function ProjectContent() {
         useState(filterCategory);
     const [availableCategories, setAvailableCategories] = useState([]);
 
-    const recordsPerPage = 9;
+    const recordsPerPage = 6;
 
     // Update URL with current state
     const updateUrlParams = (params) => {
