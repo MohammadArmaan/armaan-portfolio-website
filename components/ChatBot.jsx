@@ -58,65 +58,60 @@ export default function ChatBot() {
                     <BotMessageSquare className="text-4xl" />
                 </div>
             </DialogTrigger>
-            <DialogContent className="container">
-                <DialogHeader>
-                    <DialogTitle className="text-3xl font-extrabold mt-2 text-center capitalize text-foreground">
-                        Talk to Mohammad Armaan's Bot 🤖
-                    </DialogTitle>
-                    <DialogDescription className="text-center text-muted-foreground">
-                        Ask anything about Mohammad Armaan
-                    </DialogDescription>
-                </DialogHeader>
-                <div className="mt-4 p-4 w-full h-[50vh] border-primary border-1 rounded-md">
-                    <ScrollArea className="h-[400px]">
-                        <strong className="text-foreground">Chat:</strong>
-                        <div className="flex flex-col gap-4 mt-4">
-                            {chatLog.map((msg, index) =>
-                                msg.from === "gemini" ? (
-                                    <div
-                                        key={index}
-                                        className="self-start bg-muted text-foreground sm:max-w-[400px] max-w-[250px] px-4 py-2 rounded-md text-sm break-words [&_a]:text-primary [&_a:hover]:underline"
-                                        dangerouslySetInnerHTML={{
-                                            __html: msg.text,
-                                        }}
-                                    />
-                                ) : (
-                                    <div
-                                        key={index}
-                                        className="self-end bg-primary text-dark-background max-w-full px-4 py-2 rounded-md text-sm break-words"
-                                    >
-                                        {msg.text}
-                                    </div>
-                                )
-                            )}
-                            {/* Loading animation */}
-                            {isLoading && (
-                                <div className="self-start bg-muted text-foreground max-w-fit px-4 py-2 rounded-md text-sm">
-                                    <span className="animate-pulse text-xl">
-                                        ...
-                                    </span>
-                                </div>
-                            )}
-                        </div>
-                    </ScrollArea>
-                </div>
-                <DialogFooter>
-                    <form className="w-full flex gap-2 items-center" onSubmit={handleChat}>
-                        <Input
-                            className="w-full border p-2 mb-2 rounded-full"
-                            value={prompt}
-                            onChange={(e) => {
-                                setPrompt(e.target.value);
-                            }}
-                            placeholder="Ask something..."
-                        />
+            <DialogContent className="p-0 max-w-lg w-[95vw] h-[90vh] flex flex-col overflow-hidden">
+  <DialogHeader className="p-4 border-b">
+    <DialogTitle className="text-lg text-center">
+      Talk to Mohammad Armaan's Bot 🤖
+    </DialogTitle>
+    <DialogDescription className="text-center text-muted-foreground">
+      Ask anything about Mohammad Armaan
+    </DialogDescription>
+  </DialogHeader>
 
-                        <Button>
-                            <Send size={25} />
-                        </Button>
-                    </form>
-                </DialogFooter>
-            </DialogContent>
+  {/* Scrollable chat area */}
+  <div className="flex-1 overflow-y-auto px-4 py-2">
+    <div className="flex flex-col gap-4">
+      {chatLog.map((msg, index) =>
+        msg.from === "gemini" ? (
+          <div
+            key={index}
+            className="self-start bg-muted text-foreground sm:max-w-[400px] max-w-[250px] px-4 py-2 rounded-md text-sm break-words [&_a]:text-primary [&_a:hover]:underline"
+            dangerouslySetInnerHTML={{ __html: msg.text }}
+          />
+        ) : (
+          <div
+            key={index}
+            className="self-end bg-primary text-dark-background max-w-full px-4 py-2 rounded-md text-sm break-words"
+          >
+            {msg.text}
+          </div>
+        )
+      )}
+      {isLoading && (
+        <div className="self-start bg-muted text-foreground max-w-fit px-4 py-2 rounded-md text-sm">
+          <span className="animate-pulse text-xl">...</span>
+        </div>
+      )}
+    </div>
+  </div>
+
+  {/* Input stays fixed at bottom */}
+  <form
+    onSubmit={handleChat}
+    className="p-4 border-t flex items-center gap-2"
+  >
+    <Input
+      value={prompt}
+      onChange={(e) => setPrompt(e.target.value)}
+      placeholder="Ask something..."
+      className="flex-1 rounded-full"
+    />
+    <Button type="submit" disabled={isLoading}>
+      <Send size={20} />
+    </Button>
+  </form>
+</DialogContent>
+
         </Dialog>
     );
 }
