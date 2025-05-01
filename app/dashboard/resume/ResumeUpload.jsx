@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import ResumeEmedder from "./ResumeEmbedder";
 
 export default function ResumeUpload() {
     const [file, setFile] = useState(null);
@@ -69,19 +70,24 @@ export default function ResumeUpload() {
                         className="hidden"
                     />
 
-                    <div className="flex items-center gap-4 border border-primary p-2 rounded-md">
+                    <div className="flex items-center gap-4 border border-primary p-4 rounded-md">
                         <Button
                             type="button"
                             onClick={() => fileInputRef.current.click()}
-                            className="p-1 text-sm rounded-md"
+                            className="p-2 text-sm rounded-full"
                             disabled={uploading}
                         >
-                            {file ? "Change File" : "Choose Resume"}
+                            {file ? "Change File" : "Choose File"}
                         </Button>
 
                         {file && (
                             <span className="text-sm text-muted-foreground">
                                 {file.name}
+                            </span>
+                        )}
+                        {!file && (
+                            <span className="text-md text-muted-foreground">
+                                No Files Choosen
                             </span>
                         )}
                     </div>
@@ -107,6 +113,7 @@ export default function ResumeUpload() {
                         </div>
                     )}
                 </div>
+                <ResumeEmedder />
             </div>
         </div>
     );

@@ -6,6 +6,7 @@ import PageTransition from "@/components/PageTransition";
 import StairTransition from "@/components/StairTransition";
 import { Toaster } from "sonner";
 import Footer from "@/components/Footer";
+import ChatBot from "@/components/ChatBot";
 
 const jetbrainsMono = JetBrains_Mono({
     subsets: ["latin"],
@@ -40,7 +41,10 @@ export default function RootLayout({ children }) {
                 >
                     <Header />
                     <StairTransition />
-                    <PageTransition>{children}</PageTransition>
+                    <PageTransition>
+                        {children}
+                        <ChatBot />
+                    </PageTransition>
                     <Toaster />
                     <Footer />
                 </ThemeProvider>
