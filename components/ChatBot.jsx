@@ -58,9 +58,9 @@ export default function ChatBot() {
                     <BotMessageSquare className="text-4xl" />
                 </div>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="container">
                 <DialogHeader>
-                    <DialogTitle className="text-3xl font-extrabold text-center capitalize text-foreground">
+                    <DialogTitle className="text-3xl font-extrabold mt-2 text-center capitalize text-foreground">
                         Talk to Mohammad Armaan's Bot 🤖
                     </DialogTitle>
                     <DialogDescription className="text-center text-muted-foreground">
@@ -75,7 +75,7 @@ export default function ChatBot() {
                                 msg.from === "gemini" ? (
                                     <div
                                         key={index}
-                                        className="self-start bg-muted text-foreground max-w-full px-4 py-2 rounded-md text-sm break-words [&_a]:text-primary [&_a:hover]:underline"
+                                        className="self-start bg-muted text-foreground sm:max-w-[400px] max-w-[250px] px-4 py-2 rounded-md text-sm break-words [&_a]:text-primary [&_a:hover]:underline"
                                         dangerouslySetInnerHTML={{
                                             __html: msg.text,
                                         }}
