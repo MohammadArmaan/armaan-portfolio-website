@@ -23,13 +23,32 @@ const poppins = Poppins({
 
 export const metadata = {
     title: {
-        template: "Mohammad Armaan | %s",
-        default: "Mohammad Armaan | Welcome",
+      template: "Mohammad Armaan | %s",
+      default: "Mohammad Armaan | Welcome",
     },
     description:
-        "Discover the dynamic portfolio of Mohammad Armaan, showcasing a fusion of creativity, innovation, and expertise in web development and design. Explore a curated collection of projects",
-};
-
+      "Discover the dynamic portfolio of Mohammad Armaan, showcasing a fusion of creativity, innovation, and expertise in web development and design. Explore a curated collection of projects",
+    icons: {
+      icon: "/icon.ico", 
+    },
+    openGraph: {
+      title: "Mohammad Armaan | Web Developer Portfolio",
+      description:
+        "Showcasing projects and expertise in full-stack web development by Mohammad Armaan.",
+      url: "https://yourdomain.com",
+      siteName: "Mohammad Armaan",
+      images: [
+        {
+          url: "https://mohammadarmaan.co.in/logo.png", 
+          width: 600,
+          height: 600,
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+  };
+  
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
