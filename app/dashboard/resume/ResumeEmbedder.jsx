@@ -37,7 +37,6 @@ export default function ResumeEmedder() {
 
             setResponse(data.path);
 
-            embedResumeFile(data.path);
         } catch (error) {
             setError(error.message);
         } finally {
