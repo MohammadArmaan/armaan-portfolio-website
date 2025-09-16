@@ -34,12 +34,12 @@ export const metadata = {
     openGraph: {
       title: "Mohammad Armaan | Web Developer Portfolio",
       description:
-        "Showcasing projects and expertise in full-stack web development by Mohammad Armaan.",
+        "Discover the dynamic portfolio of Mohammad Armaan, showcasing a fusion of creativity, innovation, and expertise in web development and design. Explore a curated collection of projects",
       url: "https://mohammadarmaan.co.in",
       siteName: "Mohammad Armaan",
       images: [
         {
-          url: "https://mohammadarmaan.co.in/logo.png", 
+          url: "https://mohammadarmaan.co.in/logo-short.png", 
           width: 600,
           height: 600,
         },
