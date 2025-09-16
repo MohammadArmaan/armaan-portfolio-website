@@ -40,8 +40,8 @@ export const metadata = {
       images: [
         {
           url: "https://mohammadarmaan.co.in/logo-short.png", 
-          width: 600,
-          height: 600,
+          width: 500,
+          height: 500,
         },
       ],
       locale: "en_US",
