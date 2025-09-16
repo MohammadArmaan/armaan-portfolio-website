@@ -35,7 +35,7 @@ export const metadata = {
       title: "Mohammad Armaan | Web Developer Portfolio",
       description:
         "Showcasing projects and expertise in full-stack web development by Mohammad Armaan.",
-      url: "https://yourdomain.com",
+      url: "https://mohammadarmaan.co.in",
       siteName: "Mohammad Armaan",
       images: [
         {
