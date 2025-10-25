@@ -36,7 +36,7 @@ export default function Projects() {
 }
 
 async function fetchProjects() {
-  const { data, error } = await supabase.from("projects").select("*");
+  const { data, error } = await supabase.from("projects").select("*").order("num", { ascending: true });
   if (error) {
     console.error("Error fetching projects:", error);
     return [];
