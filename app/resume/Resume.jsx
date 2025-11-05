@@ -2,7 +2,7 @@
 
 import { FaHtml5, FaCss3, FaJs, FaReact, FaNodeJs } from "react-icons/fa";
 import { RiNextjsFill, RiTailwindCssFill } from "react-icons/ri";
-import { SiMongodb, SiExpress } from "react-icons/si";
+import { SiMongodb, SiExpress, SiPrisma, SiMysql, SiTypescript, SiSolidity, SiDrizzle, SiFigma, SiGooglegemini } from "react-icons/si";
 import { motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -81,8 +81,20 @@ const skills = {
             name: "Javascript",
         },
         {
+            icon: <SiTypescript />,
+            name: "Typescript",
+        },
+        {
+            icon: <SiSolidity />,
+            name: "Solidity",
+        },
+        {
             icon: <FaNodeJs />,
             name: "Node.js",
+        },
+                {
+            icon: <SiExpress />,
+            name: "Express",
         },
         {
             icon: <FaReact />,
@@ -92,18 +104,33 @@ const skills = {
             icon: <RiNextjsFill />,
             name: "Next.js",
         },
-
         {
             icon: <RiTailwindCssFill />,
             name: "Tailwind CSS",
         },
         {
-            icon: <SiExpress />,
-            name: "Express",
+            icon: <SiFigma />,
+            name: "Figma",
+        },
+        {
+            icon: <SiGooglegemini />,
+            name: "Google Gemini",
         },
         {
             icon: <SiMongodb />,
             name: "MongoDB",
+        },
+        {
+            icon: <SiMysql />,
+            name: "MySql",
+        },
+        {
+            icon: <SiPrisma />,
+            name: "Prisma",
+        },
+        {
+            icon: <SiDrizzle />,
+            name: "Drizzle",
         },
     ],
 };
